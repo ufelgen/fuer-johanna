@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function Home() {
   const [image, setImage] = useState(false);
   function handleRandomImage() {
-    setImage(true);
+    setImage(!image);
   }
 
   const greeting = getGreeting();
@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <StyledMain>
       {image ? (
-        <RandomImage setImage={setImage} />
+        <RandomImage randomImage={handleRandomImage} />
       ) : (
         <>
           <Greeting greeting={greeting} />
