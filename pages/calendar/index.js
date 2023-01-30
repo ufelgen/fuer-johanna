@@ -2,15 +2,19 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 import Footer from "../../components/Footer";
+import Form from "../../components/Form";
 import { useState } from "react";
+import { defaultEntries } from "../../helpers/entries";
 
 export default function CalendarPage() {
   const [date, setDate] = useState(new Date());
-  const entries = [
-    { date: "2023-01-28", mood: "pink" },
-    { date: "2023-01-29", mood: "yellow" },
-    { date: "2023-01-30", mood: "lightgreen" },
-  ];
+  const [showForm, setShowForm] = useState(false);
+  const [entries, setEntries] = useState(defaultEntries);
+
+  function updateEntries(newEntry) {
+    setEntries([...entries, newEntry]);
+    console.log(entries);
+  }
 
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
@@ -33,7 +37,10 @@ export default function CalendarPage() {
     }
   };
 
-  // function handleClickDay(date, event, entries) {}
+  function handleShowForm(date) {
+    setDate(date);
+    setShowForm(!showForm);
+  }
 
   return (
     <StyledCalenderPage>
@@ -42,16 +49,23 @@ export default function CalendarPage() {
           locale="de-DE"
           tileClassName={tileClassName}
           value={date}
-          // onClickDay={(value, event) => handleClickDay(value, event, entries)}
+          onClickDay={(value) => handleShowForm(value)}
         />
       </StyledCalendarContainer>
+      {showForm && (
+        <Form
+          date={date}
+          updateEntries={updateEntries}
+          handleShowForm={handleShowForm}
+        />
+      )}
       <Footer />
     </StyledCalenderPage>
   );
 }
 
 const StyledCalenderPage = styled.main`
-  height: 100vh;
+  height: 100%;
   margin-bottom: 10vh;
   background: var(--background-gradient);
 `;
@@ -113,13 +127,22 @@ const StyledCalendarContainer = styled.section`
   }
 
   // classes for dynamic background
-  .lightgreen {
-    background: lightgreen;
-  }
-
-  .pink {
+  .hotpink {
     background: hotpink;
     color: white;
+  }
+
+  .white {
+    background: white;
+    color: black;
+  }
+
+  .black {
+    background: black;
+    color: white;
+  }
+  .lightgreen {
+    background: lightgreen;
   }
 
   .yellow {
