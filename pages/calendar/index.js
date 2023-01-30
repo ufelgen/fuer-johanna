@@ -2,18 +2,27 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 import Footer from "../../components/Footer";
-import Form from "../../components/Form";
+import BelowCalendar from "../../components/BelowCalendar";
 import { useState } from "react";
-import { defaultEntries } from "../../helpers/entries";
+import fetchData from "../../helpers/fetchData";
 
-export default function CalendarPage() {
+export default function CalendarPage({ allEntries = [], onAllEntries }) {
   const [date, setDate] = useState(new Date());
   const [showForm, setShowForm] = useState(false);
-  const [entries, setEntries] = useState(defaultEntries);
 
-  function updateEntries(newEntry) {
-    setEntries([...entries, newEntry]);
-    console.log(entries);
+  async function updateEntries(newEntry) {
+    await fetch("/api/entries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newEntry),
+    });
+    async function performFetch() {
+      const allEntriesFromDatabase = await fetchData();
+      onAllEntries(allEntriesFromDatabase);
+    }
+    performFetch();
   }
 
   const tileClassName = ({ date, view }) => {
@@ -22,7 +31,7 @@ export default function CalendarPage() {
       const selectedMonth = date.getMonth() + 1;
       const selectedYear = date.getFullYear();
 
-      const hasMood = entries.find((entry) => {
+      const hasMood = allEntries.find((entry) => {
         const day = entry.date.split("-")[2];
         const month = entry.date.split("-")[1];
         const year = entry.date.split("-")[0];
@@ -39,7 +48,11 @@ export default function CalendarPage() {
 
   function handleShowForm(date) {
     setDate(date);
-    setShowForm(!showForm);
+    setShowForm(true);
+  }
+
+  function handleHideForm() {
+    setShowForm(false);
   }
 
   return (
@@ -53,10 +66,11 @@ export default function CalendarPage() {
         />
       </StyledCalendarContainer>
       {showForm && (
-        <Form
+        <BelowCalendar
+          allEntries={allEntries}
           date={date}
-          updateEntries={updateEntries}
-          handleShowForm={handleShowForm}
+          onUpdateEntries={updateEntries}
+          onHideForm={handleHideForm}
         />
       )}
       <Footer />
@@ -65,7 +79,7 @@ export default function CalendarPage() {
 }
 
 const StyledCalenderPage = styled.main`
-  height: 100%;
+  height: 90vh;
   margin-bottom: 10vh;
   background: var(--background-gradient);
 `;
@@ -111,7 +125,7 @@ const StyledCalendarContainer = styled.section`
     color: black;
   }
   .react-calendar__tile--active:enabled:hover {
-    background: hotpink;
+    background: yellow;
   }
   .react-calendar__year-view__months,
   .react-calendar__decade-view__years,

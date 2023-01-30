@@ -2,7 +2,7 @@ import styled from "styled-components";
 import format from "date-fns/format";
 import { colours } from "../helpers/colours";
 
-export default function Form({ date, updateEntries, handleShowForm }) {
+export default function Form({ date, onUpdateEntries, onHideForm }) {
   function handleSubmitForm(event) {
     event.preventDefault();
     const newEntry = {
@@ -12,8 +12,8 @@ export default function Form({ date, updateEntries, handleShowForm }) {
       bad: event.target.elements.bad.value,
     };
 
-    updateEntries(newEntry);
-    handleShowForm();
+    onUpdateEntries(newEntry);
+    onHideForm();
   }
   return (
     <StyledForm onSubmit={handleSubmitForm}>
@@ -30,7 +30,7 @@ export default function Form({ date, updateEntries, handleShowForm }) {
       <label htmlFor="bad">Was ist heute doof?</label>
       <textarea cols={20} rows={5} name="bad" />
       <button type="submit">speichern</button>
-      <button type="button" onClick={handleShowForm}>
+      <button type="button" onClick={onHideForm}>
         zurück
       </button>
     </StyledForm>
