@@ -11,19 +11,11 @@ export default function Footer() {
     <StyledFooter>
       {pathname === "/calendar" ? (
         <Link href={"/"}>
-          <VscHome
-            size="7.7vh"
-            color="darkmagenta"
-            aria-label="return to main page"
-          />
+          <StyledHomeIcon aria-label="return to main page" />
         </Link>
       ) : (
         <Link href={"/calendar"}>
-          <RxCalendar
-            size="7.7vh"
-            color="darkmagenta"
-            aria-label="go to calendar"
-          />
+          <StyledCalendarIcon aria-label="go to calendar" />
         </Link>
       )}
     </StyledFooter>
@@ -39,4 +31,14 @@ const StyledFooter = styled.footer`
   justify-content: center;
   align-items: center;
   background-color: black;
+`;
+
+const StyledCalendarIcon = styled(RxCalendar)`
+  color: var(--primary);
+  font-size: 7.7vh;
+`;
+
+const StyledHomeIcon = styled(VscHome)`
+  color: var(--primary);
+  font-size: 7.7vh;
 `;

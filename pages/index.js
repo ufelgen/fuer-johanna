@@ -37,12 +37,5 @@ const StyledMain = styled.main`
   justify-content: center;
   height: 100vh;
   margin-bottom: 10vh;
-  background: rgb(5, 0, 10);
-  background: linear-gradient(
-    0deg,
-    rgba(5, 0, 10, 1) 0%,
-    rgba(171, 11, 153, 1) 70%,
-    rgba(213, 108, 197, 1) 100%,
-    rgba(194, 201, 255, 1) 100%
-  );
+  background: var(--background-gradient);
 `;

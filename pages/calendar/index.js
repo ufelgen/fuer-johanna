@@ -53,14 +53,7 @@ export default function CalendarPage() {
 const StyledCalenderPage = styled.main`
   height: 100vh;
   margin-bottom: 10vh;
-  background: rgb(5, 0, 10);
-  background: linear-gradient(
-    0deg,
-    rgba(5, 0, 10, 1) 0%,
-    rgba(171, 11, 153, 1) 70%,
-    rgba(213, 108, 197, 1) 100%,
-    rgba(194, 201, 255, 1) 100%
-  );
+  background: var(--background-gradient);
 `;
 
 const StyledCalendarContainer = styled.section`
@@ -68,13 +61,13 @@ const StyledCalendarContainer = styled.section`
   position: relative;
   button {
     margin: 2px;
-    background-color: lightslategrey;
+    background-color: var(--secondary);
     border-radius: 3px;
     color: white;
   }
   .react-calendar__navigation button {
     margin: 2px;
-    background-color: purple;
+    background-color: var(--primary);
     border-radius: 3px;
     color: white;
   }
