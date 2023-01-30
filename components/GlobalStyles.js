@@ -20,6 +20,7 @@ const GlobalStyles = createGlobalStyle`
     rgba(213, 108, 197, 1) 100%,
     rgba(194, 201, 255, 1) 100%
   );
+  --background-gradient-2: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(171,11,153,1) 100%);
         --footer-background: black;
         --primary: darkmagenta;
         --secondary: lightslategrey;

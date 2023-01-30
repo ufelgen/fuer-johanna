@@ -29,18 +29,39 @@ export default function Form({ date, onUpdateEntries, onHideForm }) {
       <textarea cols={20} rows={5} name="good" />
       <label htmlFor="bad">Was ist heute doof?</label>
       <textarea cols={20} rows={5} name="bad" />
-      <button type="submit">speichern</button>
-      <button type="button" onClick={onHideForm}>
-        zurück
-      </button>
+      <div>
+        <button type="button" onClick={onHideForm}>
+          zurück
+        </button>
+        <button type="submit">speichern</button>
+      </div>
     </StyledForm>
   );
 }
 
 const StyledForm = styled.form`
-  margin: 0rem 2rem 1rem 2rem;
+  margin: 0rem 2rem 5rem 2rem;
   padding: 1rem;
-  background-color: pink;
+  background-color: var(--primary);
+  color: white;
   display: flex;
   flex-direction: column;
+  border-radius: 5px;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0.5rem;
+  }
+
+  button {
+    padding: 0.3rem;
+    margin-left: 0.7rem;
+    margin-right: -0.5rem;
+    background-color: hotpink;
+    color: white;
+    border: none;
+    border-radius: 3px;
+  }
 `;

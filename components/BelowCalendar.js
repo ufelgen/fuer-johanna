@@ -12,11 +12,9 @@ export default function BelowCalendar({
   const currentEntry = allEntries.find(
     (entry) => entry.date == format(new Date(date), "yyyy-MM-dd")
   );
-  console.log("currentEntry", currentEntry);
-  console.log("mood", currentEntry?.mood);
 
   return (
-    <>
+    <StyledContainer>
       {currentEntry?.mood ? (
         <Entry currentEntry={currentEntry} />
       ) : (
@@ -26,6 +24,10 @@ export default function BelowCalendar({
           onHideForm={onHideForm}
         />
       )}
-    </>
+    </StyledContainer>
   );
 }
+
+const StyledContainer = styled.section`
+  margin-bottom: 10vh;
+`;

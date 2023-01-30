@@ -41,7 +41,7 @@ export default function CalendarPage({ allEntries = [], onAllEntries }) {
       });
 
       if (hasMood) {
-        return hasMood.mood;
+        return hasMood.mood.split("-")[1];
       }
     }
   };
@@ -79,9 +79,9 @@ export default function CalendarPage({ allEntries = [], onAllEntries }) {
 }
 
 const StyledCalenderPage = styled.main`
-  height: 90vh;
-  margin-bottom: 10vh;
-  background: var(--background-gradient);
+  height: 100vh;
+  margin-bottom: 20vh;
+  background: var(--background-gradient-2);
 `;
 
 const StyledCalendarContainer = styled.section`
@@ -154,6 +154,16 @@ const StyledCalendarContainer = styled.section`
   .black {
     background: black;
     color: white;
+  }
+
+  .lightblue {
+    background: lightblue;
+    color: black;
+  }
+
+  .lightgrey {
+    background: lightgrey;
+    color: black;
   }
   .lightgreen {
     background: lightgreen;
