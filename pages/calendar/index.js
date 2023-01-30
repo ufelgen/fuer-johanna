@@ -16,13 +16,16 @@ export default function CalendarPage() {
     if (view === "month") {
       const selectedDay = date.getDate();
       const selectedMonth = date.getMonth() + 1;
+      const selectedYear = date.getFullYear();
 
       const hasMood = entries.find((entry) => {
         const day = entry.date.split("-")[2];
         const month = entry.date.split("-")[1];
-        return selectedDay == day && selectedMonth == month;
+        const year = entry.date.split("-")[0];
+        return (
+          selectedDay == day && selectedMonth == month && selectedYear == year
+        );
       });
-      console.log("hasMood", hasMood);
 
       if (hasMood) {
         return hasMood.mood;
@@ -65,14 +68,17 @@ const StyledCalendarContainer = styled.section`
   position: relative;
   button {
     margin: 2px;
-    background-color: hotpink;
+    background-color: lightslategrey;
+    border-radius: 3px;
+    color: white;
+  }
+  .react-calendar__navigation button {
+    margin: 2px;
+    background-color: purple;
     border-radius: 3px;
     color: white;
   }
 
-  .highlight {
-    background: yellow;
-  }
   .react-calendar__tile--now {
     box-shadow: 0 0 2px 2px hotpink;
   }
@@ -112,4 +118,20 @@ const StyledCalendarContainer = styled.section`
       max-width: initial !important;
     }
   }
+
+  // classes for dynamic background
+  .lightgreen {
+    background: lightgreen;
+  }
+
+  .pink {
+    background: hotpink;
+    color: white;
+  }
+
+  .yellow {
+    background: yellow;
+  }
+
+  ////
 `;
