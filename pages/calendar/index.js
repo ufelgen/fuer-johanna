@@ -1,13 +1,37 @@
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
-//import { Badge } from "@mui/material";
+import { Badge } from "@mui/material";
 import Footer from "../../components/Footer";
 import { useState } from "react";
 
 export default function CalendarPage() {
   const [date, setDate] = useState(new Date());
-  const entries = [];
+  const entries = [
+    { date: "2023-01-28", mood: "pink" },
+    { date: "2023-01-29", mood: "yellow" },
+    { date: "2023-01-30", mood: "lightgreen" },
+  ];
+
+  const tileClassName = ({ date, view }) => {
+    // gets the day and month seperately of the selected day
+    if (view === "month") {
+      const selectedDay = date.getDate();
+      const selectedMonth = date.getMonth() + 1;
+
+      // gets the day and month seperately of the moods in the entries and compares if dates are the same (without the year)
+      const hasMood = entries.find((entry) => {
+        const day = entry.date.split("-")[2];
+        const month = entry.date.split("-")[1];
+        return selectedDay == day && selectedMonth == month;
+      });
+
+      // if the comparison is true, the class "highlight" will be added to the day to indicate that there is a mood saved for this day
+      if (hasMood) {
+        return "highlight";
+      }
+    }
+  };
 
   const tileContent = ({ date, view }) => {
     // gets the day and month seperately of the selected day
@@ -15,16 +39,22 @@ export default function CalendarPage() {
       const selectedDay = date.getDate();
       const selectedMonth = date.getMonth() + 1;
 
-      // gets the day and month seperately of the birthdays in the entries and compares if dates are the same (without the year)
-      const hasBirthday = entries.find((entry) => {
-        const birthDay = entry.birthday.split("-")[2];
-        const birthMonth = entry.birthday.split("-")[1];
-        return selectedDay == birthDay && selectedMonth == birthMonth;
+      // gets the day and month seperately of the moods in the entries and compares if dates are the same (without the year)
+      const hasMood = entries.find((entry) => {
+        const day = entry.date.split("-")[2];
+        const month = entry.date.split("-")[1];
+        return selectedDay == day && selectedMonth == month;
       });
 
       // if the comparison is true, a MUI Badge will be added to the day to indicate that there is a birthday on this day
-      if (hasBirthday) {
-        return <Badge overlap="circular" badgeContent={"🎁"} />;
+      if (hasMood) {
+        return (
+          <Badge
+            overlap="circular"
+            badgeContent={"🎁"}
+            backgroundColor={"yellow"}
+          />
+        );
       }
     }
   };
@@ -49,6 +79,7 @@ export default function CalendarPage() {
         <Calendar
           locale="de-DE"
           tileContent={tileContent}
+          tileClassName={tileClassName}
           value={date}
           onClickDay={(value, event) => handleClickDay(value, event, entries)}
         />
@@ -73,13 +104,25 @@ const StyledCalenderPage = styled.main`
 
 // styled components are not possible with react-calendar and MUI Badges, therefore it's styled with the classes from the DevTools here
 const StyledCalendarContainer = styled.section`
-  margin: 2rem;
+  padding: 2rem;
   position: relative;
   button {
     margin: 2px;
-    background-color: var(--darkgray);
+    background-color: hotpink;
     border-radius: 3px;
+    color: white;
   }
+
+  /// ulli
+
+  .highlight {
+    background: yellow;
+  }
+  .react-calendar__tile--now {
+    box-shadow: 0 0 2px 2px hotpink;
+  }
+
+  /// ulli
   .react-calendar {
     border: none;
     border-radius: 4px;
@@ -101,7 +144,7 @@ const StyledCalendarContainer = styled.section`
     color: black;
   }
   .react-calendar__tile--active:enabled:hover {
-    background: var(--yellow);
+    background: hotpink;
   }
   .react-calendar__year-view__months,
   .react-calendar__decade-view__years,
