@@ -1,7 +1,6 @@
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
-import { Badge } from "@mui/material";
 import Footer from "../../components/Footer";
 import { useState } from "react";
 
@@ -14,12 +13,9 @@ export default function CalendarPage() {
   ];
 
   const tileClassName = ({ date, view }) => {
-    // gets the day and month seperately of the selected day
     if (view === "month") {
       const selectedDay = date.getDate();
       const selectedMonth = date.getMonth() + 1;
-
-      // gets the day and month seperately of the moods in the entries and compares if dates are the same (without the year)
 
       const hasMood = entries.find((entry) => {
         const day = entry.date.split("-")[2];
@@ -27,27 +23,14 @@ export default function CalendarPage() {
         return selectedDay == day && selectedMonth == month;
       });
       console.log("hasMood", hasMood);
-      // if the comparison is true, the class "highlight" will be added to the day to indicate that there is a mood saved for this day
+
       if (hasMood) {
         return hasMood.mood;
       }
     }
   };
 
-  /* function handleClickDay(date, event, entries) {
-    setDate(date);
-
-    const selectedDay = date.getDate();
-    const selectedMonth = date.getMonth() + 1;
-
-    // searches for every entry that has the birthday on the same day as selected
-    const birthdates = entries.filter((entry) => {
-      const birthDay = entry.birthday.split("-")[2];
-      const birthMonth = entry.birthday.split("-")[1];
-      return birthDay == selectedDay && birthMonth == selectedMonth;
-    });
-    setBirthdays(birthdates);
-  } */
+  // function handleClickDay(date, event, entries) {}
 
   return (
     <StyledCalenderPage>
@@ -77,7 +60,6 @@ const StyledCalenderPage = styled.main`
   );
 `;
 
-// styled components are not possible with react-calendar and MUI Badges, therefore it's styled with the classes from the DevTools here
 const StyledCalendarContainer = styled.section`
   padding: 2rem;
   position: relative;
@@ -88,8 +70,6 @@ const StyledCalendarContainer = styled.section`
     color: white;
   }
 
-  /// ulli
-
   .highlight {
     background: yellow;
   }
@@ -97,7 +77,6 @@ const StyledCalendarContainer = styled.section`
     box-shadow: 0 0 2px 2px hotpink;
   }
 
-  /// ulli
   .react-calendar {
     border: none;
     border-radius: 4px;
@@ -132,10 +111,5 @@ const StyledCalendarContainer = styled.section`
     .react-calendar__tile {
       max-width: initial !important;
     }
-  }
-  .MuiBadge-badge {
-    position: absolute;
-    top: -10px;
-    right: -6px;
   }
 `;
