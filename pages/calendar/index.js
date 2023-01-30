@@ -20,46 +20,21 @@ export default function CalendarPage() {
       const selectedMonth = date.getMonth() + 1;
 
       // gets the day and month seperately of the moods in the entries and compares if dates are the same (without the year)
+
       const hasMood = entries.find((entry) => {
         const day = entry.date.split("-")[2];
         const month = entry.date.split("-")[1];
         return selectedDay == day && selectedMonth == month;
       });
-
+      console.log("hasMood", hasMood);
       // if the comparison is true, the class "highlight" will be added to the day to indicate that there is a mood saved for this day
       if (hasMood) {
-        return "highlight";
+        return hasMood.mood;
       }
     }
   };
 
-  const tileContent = ({ date, view }) => {
-    // gets the day and month seperately of the selected day
-    if (view === "month") {
-      const selectedDay = date.getDate();
-      const selectedMonth = date.getMonth() + 1;
-
-      // gets the day and month seperately of the moods in the entries and compares if dates are the same (without the year)
-      const hasMood = entries.find((entry) => {
-        const day = entry.date.split("-")[2];
-        const month = entry.date.split("-")[1];
-        return selectedDay == day && selectedMonth == month;
-      });
-
-      // if the comparison is true, a MUI Badge will be added to the day to indicate that there is a birthday on this day
-      if (hasMood) {
-        return (
-          <Badge
-            overlap="circular"
-            badgeContent={"🎁"}
-            backgroundColor={"yellow"}
-          />
-        );
-      }
-    }
-  };
-
-  function handleClickDay(date, event, entries) {
+  /* function handleClickDay(date, event, entries) {
     setDate(date);
 
     const selectedDay = date.getDate();
@@ -72,16 +47,16 @@ export default function CalendarPage() {
       return birthDay == selectedDay && birthMonth == selectedMonth;
     });
     setBirthdays(birthdates);
-  }
+  } */
+
   return (
     <StyledCalenderPage>
       <StyledCalendarContainer>
         <Calendar
           locale="de-DE"
-          tileContent={tileContent}
           tileClassName={tileClassName}
           value={date}
-          onClickDay={(value, event) => handleClickDay(value, event, entries)}
+          // onClickDay={(value, event) => handleClickDay(value, event, entries)}
         />
       </StyledCalendarContainer>
       <Footer />
