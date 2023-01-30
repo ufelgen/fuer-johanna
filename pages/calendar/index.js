@@ -10,8 +10,6 @@ export default function CalendarPage({ allEntries = [], onAllEntries }) {
   const [date, setDate] = useState(new Date());
   const [showForm, setShowForm] = useState(false);
 
-  console.log("huhu testi");
-
   async function updateEntries(newEntry) {
     await fetch("/api/entries", {
       method: "POST",
