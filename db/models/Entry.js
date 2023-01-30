@@ -10,6 +10,6 @@ const entrySchema = new Schema({
   bad: { type: String },
 });
 
-const Entry = mongoose.models.Word || mongoose.model("Entry", entrySchema);
+const Entry = mongoose.models.Entry || mongoose.model("Entry", entrySchema);
 
 export default Entry;

@@ -27,6 +27,18 @@ export default function CalendarPage({ allEntries = [], onAllEntries }) {
     performFetch();
   }
 
+  async function deleteEntry(event, id) {
+    event.preventDefault();
+    await fetch("/api/entries/" + id, {
+      method: "DELETE",
+    });
+    async function performFetch() {
+      const allEntriesFromDatabase = await fetchData();
+      onAllEntries(allEntriesFromDatabase);
+    }
+    performFetch();
+  }
+
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
       const selectedDay = date.getDate();
@@ -73,6 +85,7 @@ export default function CalendarPage({ allEntries = [], onAllEntries }) {
           date={date}
           onUpdateEntries={updateEntries}
           onHideForm={handleHideForm}
+          onDeleteEntry={deleteEntry}
         />
       )}
       <Footer />

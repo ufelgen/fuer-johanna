@@ -8,6 +8,7 @@ export default function BelowCalendar({
   date,
   onUpdateEntries,
   onHideForm,
+  onDeleteEntry,
 }) {
   const currentEntry = allEntries.find(
     (entry) => entry.date == format(new Date(date), "yyyy-MM-dd")
@@ -16,7 +17,11 @@ export default function BelowCalendar({
   return (
     <StyledContainer>
       {currentEntry?.mood ? (
-        <Entry currentEntry={currentEntry} />
+        <Entry
+          currentEntry={currentEntry}
+          onDeleteEntry={onDeleteEntry}
+          onHideForm={onHideForm}
+        />
       ) : (
         <Form
           date={date}
