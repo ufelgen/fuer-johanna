@@ -11,8 +11,8 @@ const providers = [
     },
     async authorize(credentials) {
       if (
-        credentials.username === "otter" &&
-        credentials.password === "otter"
+        credentials.username === "super-cute-otter" &&
+        credentials.password === "super-cute-otter"
       ) {
         return {
           name: "Cute Otter",
