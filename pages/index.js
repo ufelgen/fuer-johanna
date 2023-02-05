@@ -28,7 +28,7 @@ export default function Home() {
 
   return (
     <StyledMain>
-      {today === "05-02" && <Confetti height={height} width={width} />}
+      {today === "10-02" && <Confetti height={height} width={width} />}
       {image ? (
         <RandomImage randomImage={handleRandomImage} />
       ) : (
