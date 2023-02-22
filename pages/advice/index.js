@@ -31,10 +31,7 @@ const StyledAdvicePage = styled.main`
   height: 100vh;
   margin-bottom: 10vh;
   background: var(--background-gradient-2);
-  //position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  //justify-content: center;
-  //background: var(--background-gradient);
 `;
