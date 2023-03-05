@@ -3,10 +3,13 @@ import { useState } from "react";
 import Footer from "../../components/Footer";
 import RandomButton from "../../components/RandomImageButton";
 import RandomAdvice from "../../components/RandomAdvice";
+import { generateRandomString } from "../../helpers/generateRandomString";
+import generate from "@babel/generator";
 
 export default function Advice() {
   const [advice, setAdvice] = useState("");
-  const url = "https://api.adviceslip.com/advice";
+  const url =
+    "https://api.adviceslip.com/advice?random=" + generateRandomString(12);
 
   async function fetchAdvice() {
     try {
