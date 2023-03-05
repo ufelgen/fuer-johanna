@@ -4,7 +4,6 @@ import Footer from "../../components/Footer";
 import RandomButton from "../../components/RandomImageButton";
 import RandomAdvice from "../../components/RandomAdvice";
 import { generateRandomString } from "../../helpers/generateRandomString";
-import generate from "@babel/generator";
 
 export default function Advice() {
   const [advice, setAdvice] = useState("");
@@ -20,10 +19,6 @@ export default function Advice() {
       console.error(error);
     }
   }
-
-  setTimeout(() => {
-    setAdvice("");
-  }, "10000");
 
   return (
     <StyledAdvicePage>
