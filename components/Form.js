@@ -20,7 +20,6 @@ export default function Form({ date, onUpdateEntries, onHideForm }) {
       period: event.target.elements.period.checked,
     };
 
-    console.log(newEntry);
     onUpdateEntries(newEntry);
     onHideForm();
 
