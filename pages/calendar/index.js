@@ -99,16 +99,19 @@ export default function CalendarPage({ allEntries = [], onAllEntries }) {
       const selectedMonth = date.getMonth() + 1;
       const selectedYear = date.getFullYear();
 
-      const hasMood = allEntries.find((entry) => {
+      const hasPeriod = allEntries.find((entry) => {
         const day = entry.date.split("-")[2];
         const month = entry.date.split("-")[1];
         const year = entry.date.split("-")[0];
         return (
-          selectedDay == day && selectedMonth == month && selectedYear == year
+          selectedDay == day &&
+          selectedMonth == month &&
+          selectedYear == year &&
+          entry.period
         );
       });
 
-      if (hasMood) {
+      if (hasPeriod) {
         return <Badge overlap="circular" badgeContent={<GiChocolateBar />} />;
       }
     }

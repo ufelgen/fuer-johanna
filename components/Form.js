@@ -17,8 +17,10 @@ export default function Form({ date, onUpdateEntries, onHideForm }) {
       mood: event.target.elements.colour.value,
       good: event.target.elements.good.value,
       bad: event.target.elements.bad.value,
+      period: event.target.elements.period.checked,
     };
 
+    console.log(newEntry);
     onUpdateEntries(newEntry);
     onHideForm();
 
@@ -40,6 +42,10 @@ export default function Form({ date, onUpdateEntries, onHideForm }) {
       <textarea cols={20} rows={5} name="good" />
       <label htmlFor="bad">Was ist heute doof?</label>
       <textarea cols={20} rows={5} name="bad" />
+      <section>
+        <label htmlFor="period">Hast du deine Tage?</label>
+        <input type="checkbox" name="period" value="period" />
+      </section>
       <div>
         <button type="button" onClick={onHideForm}>
           zurück
@@ -66,6 +72,15 @@ const StyledForm = styled.form`
     margin: 0.5rem;
   }
 
+  section {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    label {
+      padding-right: 0.5rem;
+    }
+  }
   button {
     padding: 0.3rem;
     margin-left: 0.7rem;
