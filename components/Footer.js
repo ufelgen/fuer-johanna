@@ -11,7 +11,9 @@ export default function Footer() {
 
   return (
     <StyledFooter>
-      {pathname === "/calendar" || pathname === "/advice" ? (
+      {pathname === "/calendar" ||
+      pathname === "/advice" ||
+      pathname === "/kanban" ? (
         <Link href={"/"}>
           <StyledHomeIcon aria-label="return to main page" />
         </Link>
