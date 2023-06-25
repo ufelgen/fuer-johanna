@@ -5,9 +5,11 @@ import { fetchTaskData } from "../../helpers/fetchData";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { StyledPageMain } from "../../components/Styles";
+import dynamic from "next/dynamic";
 
 import NewTask from "../../components/NewTask";
 import TaskPage from "../../components/TaskPage";
+import BeProud from "../../components/BeProud";
 
 export default function KanbanBoardPage({
   allTasks = [],
@@ -21,6 +23,7 @@ export default function KanbanBoardPage({
   const { data: session } = useSession();
 
   const [status, setStatus] = useState("backlog");
+  const [celebration, setCelebration] = useState(false);
 
   function handleStatus(status) {
     setStatus(status);
@@ -76,10 +79,35 @@ export default function KanbanBoardPage({
     performFetch();
   }
 
+  const { height, width } = dynamic(
+    () => import("../../helpers/useWindowSize"),
+    {
+      ssr: false,
+    }
+  );
+
+  const Confetti = dynamic(() => import("react-confetti"), {
+    ssr: false,
+  });
+
+  function handleCelebration() {
+    setCelebration(true);
+    setTimeout(handleConfettiStop, 5000);
+  }
+
+  function handleConfettiStop() {
+    setCelebration(false);
+  }
+
   return (
     <StyledPageMain>
       {session ? (
         <>
+          {celebration && (
+            <>
+              <Confetti height={height} width={width} /> <BeProud />
+            </>
+          )}
           <StyledAddButton onClick={onShowForm}>
             <AiFillPlusCircle />
           </StyledAddButton>
@@ -95,6 +123,7 @@ export default function KanbanBoardPage({
               onChangeStatus={handleStatus}
               editing={editing}
               toggleEditMode={toggleEditMode}
+              onCelebration={handleCelebration}
             />
           )}
           <ButtonContainer>

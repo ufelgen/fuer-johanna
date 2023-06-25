@@ -4,13 +4,13 @@ import { useState } from "react";
 
 export default function TaskPage({
   allTasks = [],
-  onUpdateTasks,
   onDeleteTask,
   onEditTask,
   status,
   onChangeStatus,
   editing,
   toggleEditMode,
+  onCelebration,
 }) {
   const [editId, setEditId] = useState();
 
@@ -23,6 +23,12 @@ export default function TaskPage({
       const currentTask = allTasks.find((task) => task.id === taskId);
       const taskWithNewStatus = { ...currentTask, status: newStatus };
       onEditTask(taskWithNewStatus, taskId);
+      console.log("newStatus", newStatus);
+      if (newStatus === "done") {
+        onCelebration();
+      } else {
+        return;
+      }
     } else {
       return;
     }
