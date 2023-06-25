@@ -111,33 +111,30 @@ export default function KanbanBoardPage({
           <StyledAddButton onClick={onShowForm}>
             <AiFillPlusCircle />
           </StyledAddButton>
-          {showForm ? (
-            <NewTask onHideForm={onHideForm} onUpdateTasks={updateTasks} />
-          ) : (
-            <TaskPage
-              allTasks={allTasks}
-              onUpdateTasks={updateTasks}
-              onDeleteTask={deleteTask}
-              onEditTask={handleEditTask}
-              status={status}
-              onChangeStatus={handleStatus}
-              editing={editing}
-              toggleEditMode={toggleEditMode}
-              onCelebration={handleCelebration}
-            />
-          )}
-          <ButtonContainer>
-            <StyledLogoutButton onClick={() => signOut()}>
-              abmelden
-            </StyledLogoutButton>
-          </ButtonContainer>
+          <>
+            {showForm ? (
+              <NewTask onHideForm={onHideForm} onUpdateTasks={updateTasks} />
+            ) : (
+              <TaskPage
+                allTasks={allTasks}
+                onUpdateTasks={updateTasks}
+                onDeleteTask={deleteTask}
+                onEditTask={handleEditTask}
+                status={status}
+                onChangeStatus={handleStatus}
+                editing={editing}
+                toggleEditMode={toggleEditMode}
+                onCelebration={handleCelebration}
+              />
+            )}
+          </>
+
+          <StyledLogoutButton onClick={() => signOut()}>
+            abmelden
+          </StyledLogoutButton>
         </>
       ) : (
-        <ButtonContainer>
-          <StyledLoginButton onClick={() => signIn()}>
-            anmelden
-          </StyledLoginButton>
-        </ButtonContainer>
+        <StyledLoginButton onClick={() => signIn()}>anmelden</StyledLoginButton>
       )}
 
       <Footer />
@@ -156,26 +153,25 @@ const StyledLoginButton = styled.button`
   border-radius: 5px;
   font-weight: bold;
   font-size: 2rem;
-`;
 
-const StyledLogoutButton = styled(StyledLoginButton)`
-  font-size: 1rem;
-`;
-
-const ButtonContainer = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 11vh;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
+const StyledLogoutButton = styled(StyledLoginButton)`
+  font-size: 1rem;
+`;
+
 const StyledAddButton = styled.button`
   background-color: transparent;
   color: var(--primary);
   font-size: 7.7vh;
-  position: absolute;
+  position: fixed;
   bottom: 12vh;
   right: 1rem;
   border: none;
+  z-index: 5;
 `;

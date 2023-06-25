@@ -75,60 +75,62 @@ export default function TaskPage({
           Fertig!
         </button>
       </ButtonContainer>
-      {allTasks
-        .filter((task) => task.status === status)
-        .map((task) =>
-          editing && editId === task.id ? (
-            <EditTask
-              key={task.id}
-              allTasks={allTasks}
-              currentTask={task}
-              editId={editId}
-              onEditTask={onEditTask}
-              toggleEditMode={toggleEditMode}
-            />
-          ) : (
-            <Task key={task.id} style={{ background: task.colour }}>
-              <h4>{task.headline}</h4>
-              <p>{task.body}</p>
-              <ButtonContainerForTasks>
-                <button type="button" onClick={() => handleEditMode(task.id)}>
-                  bearbeiten
-                </button>
-                <button
-                  type="button"
-                  onClick={(event) => onDeleteTask(event, task.id)}
-                >
-                  löschen
-                </button>
-                {status === "backlog" && (
+      <TasksContainer>
+        {allTasks
+          .filter((task) => task.status === status)
+          .map((task) =>
+            editing && editId === task.id ? (
+              <EditTask
+                key={task.id}
+                allTasks={allTasks}
+                currentTask={task}
+                editId={editId}
+                onEditTask={onEditTask}
+                toggleEditMode={toggleEditMode}
+              />
+            ) : (
+              <Task key={task.id} style={{ background: task.colour }}>
+                <h4>{task.headline}</h4>
+                <p>{task.body}</p>
+                <ButtonContainerForTasks>
+                  <button type="button" onClick={() => handleEditMode(task.id)}>
+                    bearbeiten
+                  </button>
                   <button
                     type="button"
-                    onClick={(event) => handleMove(event, "ready", task.id)}
+                    onClick={(event) => onDeleteTask(event, task.id)}
                   >
-                    bereit?
+                    löschen
                   </button>
-                )}
-                {status === "ready" && (
-                  <button
-                    type="button"
-                    onClick={(event) => handleMove(event, "wip", task.id)}
-                  >
-                    in Arbeit?
-                  </button>
-                )}
-                {status === "wip" && (
-                  <button
-                    type="button"
-                    onClick={(event) => handleMove(event, "done", task.id)}
-                  >
-                    fertig?
-                  </button>
-                )}
-              </ButtonContainerForTasks>
-            </Task>
-          )
-        )}
+                  {status === "backlog" && (
+                    <button
+                      type="button"
+                      onClick={(event) => handleMove(event, "ready", task.id)}
+                    >
+                      bereit?
+                    </button>
+                  )}
+                  {status === "ready" && (
+                    <button
+                      type="button"
+                      onClick={(event) => handleMove(event, "wip", task.id)}
+                    >
+                      in Arbeit?
+                    </button>
+                  )}
+                  {status === "wip" && (
+                    <button
+                      type="button"
+                      onClick={(event) => handleMove(event, "done", task.id)}
+                    >
+                      fertig?
+                    </button>
+                  )}
+                </ButtonContainerForTasks>
+              </Task>
+            )
+          )}
+      </TasksContainer>
     </>
   );
 }
@@ -140,6 +142,8 @@ const Task = styled.section`
 `;
 
 const ButtonContainer = styled.div`
+  position: fixed;
+  top: 3vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -160,6 +164,8 @@ const ButtonContainer = styled.div`
 `;
 
 const ButtonContainerForTasks = styled(ButtonContainer)`
+  position: relative;
+  top: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -175,4 +181,11 @@ const ButtonContainerForTasks = styled(ButtonContainer)`
     padding: 0.5rem;
     margin: 0 0 0 0.5rem;
   }
+`;
+
+const TasksContainer = styled.section`
+  position: fixed;
+  top: 10vh;
+  bottom: 20vh;
+  overflow-y: scroll;
 `;
