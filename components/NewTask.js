@@ -13,7 +13,6 @@ export default function NewTask({ onHideForm, onUpdateTasks }) {
 
     onUpdateTasks(newTask);
     onHideForm();
-    console.log(newTask);
     event.target.reset();
   }
   return (

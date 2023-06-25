@@ -23,7 +23,7 @@ export default function TaskPage({
       const currentTask = allTasks.find((task) => task.id === taskId);
       const taskWithNewStatus = { ...currentTask, status: newStatus };
       onEditTask(taskWithNewStatus, taskId);
-      console.log("newStatus", newStatus);
+
       if (newStatus === "done") {
         onCelebration();
       } else {
@@ -33,8 +33,6 @@ export default function TaskPage({
       return;
     }
   }
-
-  console.log("editing", editing);
 
   function handleEditMode(taskId) {
     toggleEditMode();
@@ -93,39 +91,41 @@ export default function TaskPage({
             <Task key={task.id} style={{ background: task.colour }}>
               <h4>{task.headline}</h4>
               <p>{task.body}</p>
-              <button type="button" onClick={() => handleEditMode(task.id)}>
-                bearbeiten
-              </button>
-              <button
-                type="button"
-                onClick={(event) => onDeleteTask(event, task.id)}
-              >
-                löschen
-              </button>
-              {status === "backlog" && (
+              <ButtonContainerForTasks>
+                <button type="button" onClick={() => handleEditMode(task.id)}>
+                  bearbeiten
+                </button>
                 <button
                   type="button"
-                  onClick={(event) => handleMove(event, "ready", task.id)}
+                  onClick={(event) => onDeleteTask(event, task.id)}
                 >
-                  bereit?
+                  löschen
                 </button>
-              )}
-              {status === "ready" && (
-                <button
-                  type="button"
-                  onClick={(event) => handleMove(event, "wip", task.id)}
-                >
-                  in Arbeit?
-                </button>
-              )}
-              {status === "wip" && (
-                <button
-                  type="button"
-                  onClick={(event) => handleMove(event, "done", task.id)}
-                >
-                  fertig?
-                </button>
-              )}
+                {status === "backlog" && (
+                  <button
+                    type="button"
+                    onClick={(event) => handleMove(event, "ready", task.id)}
+                  >
+                    bereit?
+                  </button>
+                )}
+                {status === "ready" && (
+                  <button
+                    type="button"
+                    onClick={(event) => handleMove(event, "wip", task.id)}
+                  >
+                    in Arbeit?
+                  </button>
+                )}
+                {status === "wip" && (
+                  <button
+                    type="button"
+                    onClick={(event) => handleMove(event, "done", task.id)}
+                  >
+                    fertig?
+                  </button>
+                )}
+              </ButtonContainerForTasks>
             </Task>
           )
         )}
@@ -143,7 +143,7 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 1rem;
+  margin: 0 1rem;
   padding: 0.5rem;
 
   button {
@@ -156,5 +156,23 @@ const ButtonContainer = styled.div`
     &.current {
       background-color: var(--primary);
     }
+  }
+`;
+
+const ButtonContainerForTasks = styled(ButtonContainer)`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 1rem;
+  padding: 0.5rem;
+
+  button {
+    background-color: var(--secondary);
+    color: white;
+    font-weight: normal;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin: 0 0 0 0.5rem;
   }
 `;

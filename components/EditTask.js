@@ -1,13 +1,7 @@
 import styled from "styled-components";
 import { StyledForm } from "./Styles";
 
-export default function EditTask({
-  allTasks,
-  currentTask,
-  editId,
-  onEditTask,
-  toggleEditMode,
-}) {
+export default function EditTask({ currentTask, onEditTask, toggleEditMode }) {
   function handleEditedTask(event) {
     event.preventDefault();
     const editedTask = {
@@ -29,14 +23,14 @@ export default function EditTask({
       <input
         id="taskHeadline"
         name="taskHeadline"
-        value={currentTask.headline}
+        defaultValue={currentTask.headline}
       />
       <textarea
         cols={20}
         rows={5}
         name="taskBody"
         id="taskBody"
-        value={currentTask.body}
+        defaultValue={currentTask.body}
       />
       <input
         type="color"
