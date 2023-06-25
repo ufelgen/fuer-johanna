@@ -149,6 +149,7 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
   margin: 0 1rem;
   padding: 0.5rem;
+  width: 90%;
 
   button {
     background-color: var(--secondary);
@@ -188,4 +189,5 @@ const TasksContainer = styled.section`
   top: 10vh;
   bottom: 20vh;
   overflow-y: scroll;
+  width: 100%;
 `;
