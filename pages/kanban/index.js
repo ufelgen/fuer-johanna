@@ -45,10 +45,10 @@ export default function KanbanBoardPage({
     event.preventDefault();
 
     const confirmation = confirm(
-      "möchtest du diesen Eintrag wirklich löschen?"
+      "möchtest du dieses Vorhaben wirklich löschen?"
     );
     if (confirmation) {
-      await fetch("/api/task/" + id, {
+      await fetch("/api/tasks/" + id, {
         method: "DELETE",
       });
       async function performFetch() {
@@ -56,6 +56,8 @@ export default function KanbanBoardPage({
         onAllTasks(allTasksFromDatabase);
       }
       performFetch();
+    } else {
+      return;
     }
   }
 

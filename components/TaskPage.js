@@ -16,9 +16,16 @@ export default function TaskPage({
 
   function handleMove(event, newStatus, taskId) {
     event.preventDefault();
-    const currentTask = allTasks.find((task) => task.id === taskId);
-    const taskWithNewStatus = { ...currentTask, status: newStatus };
-    onEditTask(taskWithNewStatus, taskId);
+
+    const confirmation = confirm("möchtest du dieses Vorhaben verschieben?");
+
+    if (confirmation) {
+      const currentTask = allTasks.find((task) => task.id === taskId);
+      const taskWithNewStatus = { ...currentTask, status: newStatus };
+      onEditTask(taskWithNewStatus, taskId);
+    } else {
+      return;
+    }
   }
 
   console.log("editing", editing);
@@ -82,6 +89,12 @@ export default function TaskPage({
               <p>{task.body}</p>
               <button type="button" onClick={() => handleEditMode(task.id)}>
                 bearbeiten
+              </button>
+              <button
+                type="button"
+                onClick={(event) => onDeleteTask(event, task.id)}
+              >
+                löschen
               </button>
               {status === "backlog" && (
                 <button
