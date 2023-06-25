@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [allTasks, setAllTasks] = useState();
   const [date, setDate] = useState(new Date());
   const [showForm, setShowForm] = useState(false);
+  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     async function performFetch() {
@@ -42,6 +43,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     setShowForm(false);
   }
 
+  function handleToggleEditMode() {
+    setEditing(!editing);
+  }
+
   return (
     <SessionProvider session={session}>
       <GlobalStyles />
@@ -55,6 +60,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         onShowForm={handleShowForm}
         onHideForm={handleHideForm}
         date={date}
+        editing={editing}
+        toggleEditMode={handleToggleEditMode}
       />
     </SessionProvider>
   );

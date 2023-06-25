@@ -16,11 +16,10 @@ export default function CalendarPage({
   onShowForm,
   onHideForm,
   date,
+  editing,
+  toggleEditMode,
 }) {
   const { data: session } = useSession();
-
-  //const [date, setDate] = useState(new Date());
-  //const [showForm, setShowForm] = useState(false);
 
   async function updateEntries(newEntry) {
     await fetch("/api/entries", {
@@ -91,15 +90,6 @@ export default function CalendarPage({
     }
   };
 
-  /*   function handleShowForm(date) {
-    setDate(date);
-    setShowForm(true);
-  }
-
-  function handleHideForm() {
-    setShowForm(false);
-  } */
-
   const tileContent = ({ date, view }) => {
     if (view === "month") {
       const selectedDay = date.getDate();
@@ -145,6 +135,8 @@ export default function CalendarPage({
               onHideForm={onHideForm}
               onDeleteEntry={deleteEntry}
               onUpdateEntry={handleUpdateEntry}
+              editing={editing}
+              toggleEditMode={toggleEditMode}
             />
           )}
           <ButtonContainer>

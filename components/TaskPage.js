@@ -1,7 +1,33 @@
 import styled from "styled-components";
+import EditTask from "./EditTask";
+import { useState } from "react";
 
-export default function TaskPage({ allTasks = [], status, onChangeStatus }) {
-  function handleMove(newStatus, taskId) {}
+export default function TaskPage({
+  allTasks = [],
+  onUpdateTasks,
+  onDeleteTask,
+  onEditTask,
+  status,
+  onChangeStatus,
+  editing,
+  toggleEditMode,
+}) {
+  const [editId, setEditId] = useState();
+
+  function handleMove(event, newStatus, taskId) {
+    event.preventDefault();
+    const currentTask = allTasks.find((task) => task.id === taskId);
+    const taskWithNewStatus = { ...currentTask, status: newStatus };
+    onEditTask(taskWithNewStatus, taskId);
+  }
+
+  console.log("editing", editing);
+
+  function handleEditMode(taskId) {
+    toggleEditMode();
+    setEditId(taskId);
+  }
+
   return (
     <>
       <ButtonContainer>
@@ -40,21 +66,50 @@ export default function TaskPage({ allTasks = [], status, onChangeStatus }) {
       </ButtonContainer>
       {allTasks
         .filter((task) => task.status === status)
-        .map((task) => (
-          <Task key={task.id} style={{ background: task.colour }}>
-            <h4>{task.headline}</h4>
-            <p>{task.body}</p>
-            <button type="button">bearbeiten</button>
-            {status === "backlog" && (
-              <button
-                type="button"
-                onClick={() => handleMove("ready", task.id)}
-              >
-                bereit?
+        .map((task) =>
+          editing && editId === task.id ? (
+            <EditTask
+              key={task.id}
+              allTasks={allTasks}
+              currentTask={task}
+              editId={editId}
+              onEditTask={onEditTask}
+              toggleEditMode={toggleEditMode}
+            />
+          ) : (
+            <Task key={task.id} style={{ background: task.colour }}>
+              <h4>{task.headline}</h4>
+              <p>{task.body}</p>
+              <button type="button" onClick={() => handleEditMode(task.id)}>
+                bearbeiten
               </button>
-            )}
-          </Task>
-        ))}
+              {status === "backlog" && (
+                <button
+                  type="button"
+                  onClick={(event) => handleMove(event, "ready", task.id)}
+                >
+                  bereit?
+                </button>
+              )}
+              {status === "ready" && (
+                <button
+                  type="button"
+                  onClick={(event) => handleMove(event, "wip", task.id)}
+                >
+                  in Arbeit?
+                </button>
+              )}
+              {status === "wip" && (
+                <button
+                  type="button"
+                  onClick={(event) => handleMove(event, "done", task.id)}
+                >
+                  fertig?
+                </button>
+              )}
+            </Task>
+          )
+        )}
     </>
   );
 }
@@ -62,6 +117,7 @@ export default function TaskPage({ allTasks = [], status, onChangeStatus }) {
 const Task = styled.section`
   margin: 1rem;
   padding: 0.5rem;
+  border-radius: 5px;
 `;
 
 const ButtonContainer = styled.div`

@@ -15,6 +15,8 @@ export default function KanbanBoardPage({
   showForm,
   onShowForm,
   onHideForm,
+  editing,
+  toggleEditMode,
 }) {
   const { data: session } = useSession();
 
@@ -57,7 +59,7 @@ export default function KanbanBoardPage({
     }
   }
 
-  async function handleUpdateTask(updatedTask, id) {
+  async function handleEditTask(updatedTask, id) {
     await fetch("/api/tasks/" + id, {
       method: "PUT",
       headers: {
@@ -84,8 +86,13 @@ export default function KanbanBoardPage({
           ) : (
             <TaskPage
               allTasks={allTasks}
+              onUpdateTasks={updateTasks}
+              onDeleteTask={deleteTask}
+              onEditTask={handleEditTask}
               status={status}
               onChangeStatus={handleStatus}
+              editing={editing}
+              toggleEditMode={toggleEditMode}
             />
           )}
           <ButtonContainer>
@@ -125,6 +132,8 @@ const StyledLogoutButton = styled(StyledLoginButton)`
 `;
 
 const ButtonContainer = styled.div`
+  position: absolute;
+  bottom: 11vh;
   display: flex;
   align-items: center;
   justify-content: center;
