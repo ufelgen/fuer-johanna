@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { StyledForm } from "./Styles";
 
-export default function EditTask({ currentTask, onEditTask, toggleEditMode }) {
+export default function EditTask({
+  currentTask,
+  onEditTask,
+  toggleEditMode,
+  onCelebration,
+}) {
   function handleEditedTask(event) {
     event.preventDefault();
     const editedTask = {
@@ -14,6 +19,10 @@ export default function EditTask({ currentTask, onEditTask, toggleEditMode }) {
 
     onEditTask(editedTask, currentTask.id);
     toggleEditMode();
+
+    if (event.target.elements.taskStatus.value === "done") {
+      onCelebration();
+    }
   }
   return (
     <EditTaskForm

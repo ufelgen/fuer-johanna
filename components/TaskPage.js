@@ -87,6 +87,7 @@ export default function TaskPage({
                 editId={editId}
                 onEditTask={onEditTask}
                 toggleEditMode={toggleEditMode}
+                onCelebration={onCelebration}
               />
             ) : (
               <Task key={task.id} style={{ background: task.colour }}>
