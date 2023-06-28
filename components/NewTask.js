@@ -1,13 +1,22 @@
 import styled from "styled-components";
 import { StyledForm } from "./Styles";
+import {
+  determineLuminance,
+  determineTextColour,
+} from "../helpers/evaluateColour";
 
 export default function NewTask({ onHideForm, onUpdateTasks }) {
   function handleAddNewTask(event) {
     event.preventDefault();
+
+    const tooDark = determineLuminance(event.target.elements.taskColour.value);
+    const textColour = determineTextColour(tooDark);
+
     const newTask = {
       headline: event.target.elements.taskHeadline.value,
       body: event.target.elements.taskBody.value,
-      colour: event.target.elements.taskColour.value,
+      backgroundColour: event.target.elements.taskColour.value,
+      textColour: textColour,
       status: "backlog",
     };
 

@@ -90,7 +90,13 @@ export default function TaskPage({
                 onCelebration={onCelebration}
               />
             ) : (
-              <Task key={task.id} style={{ background: task.colour }}>
+              <Task
+                key={task.id}
+                style={{
+                  background: task.backgroundColour,
+                  color: task.textColour,
+                }}
+              >
                 <h4>{task.headline}</h4>
                 <p>{task.body}</p>
                 <ButtonContainerForTasks>

@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import { StyledForm } from "./Styles";
+import {
+  determineLuminance,
+  determineTextColour,
+} from "../helpers/evaluateColour";
 
 export default function EditTask({
   currentTask,
@@ -9,11 +13,16 @@ export default function EditTask({
 }) {
   function handleEditedTask(event) {
     event.preventDefault();
+
+    const tooDark = determineLuminance(event.target.elements.taskColour.value);
+    const textColour = determineTextColour(tooDark);
+
     const editedTask = {
       ...currentTask,
       headline: event.target.elements.taskHeadline.value,
       body: event.target.elements.taskBody.value,
-      colour: event.target.elements.taskColour.value,
+      backgroundColour: event.target.elements.taskColour.value,
+      textColour: textColour,
       status: event.target.elements.taskStatus.value,
     };
 
@@ -45,7 +54,7 @@ export default function EditTask({
         type="color"
         id="taskColour"
         name="taskColour"
-        defaultValue={currentTask.colour}
+        defaultValue={currentTask.backgroundColour}
       />
       <select
         id="taskStatus"

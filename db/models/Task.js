@@ -6,7 +6,8 @@ const taskSchema = new Schema({
   user: { type: String },
   headline: { type: String },
   body: { type: String },
-  colour: { type: String },
+  backgroundColour: { type: String },
+  textColour: { type: String },
   status: { type: String },
 });
 

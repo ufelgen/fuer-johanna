@@ -20,7 +20,8 @@ export default async function handler(req, res) {
         id: task._id,
         headline: task.headline,
         body: task.body,
-        colour: task.colour,
+        backgroundColour: task.backgroundColour,
+        textColour: task.textColour,
         status: task.status,
       };
     });
