@@ -3,7 +3,6 @@ import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 import Footer from "../../components/Footer";
 import BelowCalendar from "../../components/BelowCalendar";
-// import { useState } from "react";
 import { fetchEntryData } from "../../helpers/fetchData";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Badge } from "@mui/material";
