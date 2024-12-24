@@ -1,18 +1,10 @@
 import styled from "styled-components";
 import Image from "next/image";
 import RandomImageFetch from "./RandomImageFetch";
-import getRandomNumber from "../helpers/getRandomNumber";
 
 export default function RandomImage({ randomImage }) {
   const imageData = RandomImageFetch();
-  console.log(imageData, "imageData");
-
-  const randomIndex = getRandomNumber();
-
   const url = imageData?.urls?.regular;
-
-  console.log("url", url);
-  console.log(randomIndex, "randomIndex");
 
   return (
     <StyledImagePage>
