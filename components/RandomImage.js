@@ -9,7 +9,7 @@ export default function RandomImage({ randomImage }) {
 
   const randomIndex = getRandomNumber();
 
-  const url = imageData[randomIndex]?.urls?.regular;
+  const url = imageData?.urls?.regular;
 
   console.log("url", url);
   console.log(randomIndex, "randomIndex");
