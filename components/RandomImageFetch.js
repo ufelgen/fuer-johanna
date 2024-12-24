@@ -2,23 +2,14 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useFetch } from "../helpers/useFetch";
 
-export default function RandomImageFetch({ setImage }) {
+export default function RandomImageFetch() {
+  //{ setImage }
   const image = useFetch(
-    "https://api.unsplash.com/photos/random/?client_id=WKBB_hRTpI7rLsirREapzkzb5LnFcgG1uPiZBv1qBQ0"
+    // "https://api.unsplash.com/photos/random/?client_id=WKBB_hRTpI7rLsirREapzkzb5LnFcgG1uPiZBv1qBQ0"
+    "https://api.unsplash.com/photos/?client_id=DO-2ZSrlvG9NonSxNNbh2szxV1gXNj3tQqPiyDg8y_A"
   );
 
-  return (
-    <StyledImagePage>
-      <Image
-        src="https://source.unsplash.com/random/500x500?animal"
-        alt="cute animal"
-        width={300}
-        height={300}
-        priority
-      />
-      <button onClick={() => setImage(false)}>back</button>
-    </StyledImagePage>
-  );
+  return image;
 }
 
 const StyledImagePage = styled.section`

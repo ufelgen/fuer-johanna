@@ -1,22 +1,25 @@
 import styled from "styled-components";
 import Image from "next/image";
+import RandomImageFetch from "./RandomImageFetch";
+import getRandomNumber from "../helpers/getRandomNumber";
 
 export default function RandomImage({ randomImage }) {
-  function getRandomNumber() {
-    // adjust number according to number of images in collection
-    return Math.floor(Math.random() * 405);
-  }
+  const imageData = RandomImageFetch();
+  console.log(imageData, "imageData");
 
-  const url =
-    "https://source.unsplash.com/collection/2022043/" + getRandomNumber();
-  // adjust collection number
+  const randomIndex = getRandomNumber();
+
+  const url = imageData[randomIndex]?.urls?.regular;
+
+  console.log("url", url);
+  console.log(randomIndex, "randomIndex");
 
   return (
     <StyledImagePage>
       <StyledImageContainer>
         <Image
           src={url}
-          alt="cute animal"
+          alt="random image"
           layout="fill"
           objectFit="cover"
           priority
