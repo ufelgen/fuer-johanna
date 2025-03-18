@@ -3,8 +3,9 @@ import Image from "next/image";
 import RandomImageFetch from "./RandomImageFetch";
 
 export default function RandomImage({ randomImage }) {
-  const imageData = RandomImageFetch();
-  const url = imageData?.urls?.regular;
+  const imageData = RandomImageFetch("8891183");
+  //^hier die ID der Kollektion einfügen
+  const url = imageData;
 
   return (
     <StyledImagePage>
