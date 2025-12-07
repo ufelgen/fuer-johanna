@@ -6,7 +6,7 @@ export default function RandomImage({ randomImage }) {
   const imageData = RandomImageFetch("8891183");
   //^hier die ID der Kollektion einfügen
   const url = imageData;
-
+  //
   return (
     <StyledImagePage>
       <StyledImageContainer>
